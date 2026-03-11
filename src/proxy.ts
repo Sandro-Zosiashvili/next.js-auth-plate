@@ -5,7 +5,7 @@ const PUBLIC_PATHS = ['/login', '/register'];
 const COOKIE_NAME = process.env.NEXT_PUBLIC_COOKIE_NAME || 'token';
 const JWT_SECRET = process.env.JWT_SECRET;
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get(COOKIE_NAME)?.value;
 
