@@ -34,8 +34,8 @@ async function handleResponse<T>(response: Response): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export async function loginUser(dto: LoginDto): Promise<AuthResponse> {
-  const response = await fetch(API_ENDPOINTS.login, {
+export async function loginUser(dto: LoginDto, endpoint: string = API_ENDPOINTS.login): Promise<AuthResponse> {
+  const response = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dto),
@@ -47,6 +47,10 @@ export async function loginUser(dto: LoginDto): Promise<AuthResponse> {
     sameSite: 'strict',
   });
   return data;
+}
+
+export async function loginUserPanel(dto: LoginDto): Promise<AuthResponse> {
+  return loginUser(dto, API_ENDPOINTS.userLogin);
 }
 
 export async function registerUser(dto: RegisterDto): Promise<AuthResponse> {
