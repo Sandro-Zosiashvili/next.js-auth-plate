@@ -81,6 +81,12 @@
   border: 1px solid var(--color-border);
 }
 
+.panelContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
 .panelTab {
   appearance: none;
   border: none;
