@@ -117,7 +117,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             type="button"
             role="tab"
             aria-controls={panelId}
-            aria-selected={loginPanel === 'admin' ? 'true' : 'false'}
+            aria-selected={loginPanel === 'admin'}
             tabIndex={loginPanel === 'admin' ? 0 : -1}
             className={`${styles.panelTab} ${loginPanel === 'admin' ? styles.panelTabActive : ''}`}
             onClick={() => setLoginPanel('admin')}
@@ -131,7 +131,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             type="button"
             role="tab"
             aria-controls={panelId}
-            aria-selected={loginPanel === 'user' ? 'true' : 'false'}
+            aria-selected={loginPanel === 'user'}
             tabIndex={loginPanel === 'user' ? 0 : -1}
             className={`${styles.panelTab} ${loginPanel === 'user' ? styles.panelTabActive : ''}`}
             onClick={() => setLoginPanel('user')}
