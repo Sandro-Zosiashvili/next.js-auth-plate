@@ -1,7 +1,7 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 export const API_ENDPOINTS = {
-    login: `${API_BASE}/login`,
-    userLogin: `${API_BASE}/userLogin`,
+    login: `${API_BASE}/admin/login`,
+    userLogin: `${API_BASE}/user/login`,
     register: `${API_BASE}/register`,
 } as const;
 export const COOKIE_NAME = 'token';
