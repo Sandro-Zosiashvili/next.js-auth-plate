@@ -68,7 +68,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      const nextPanel = loginPanel === 'admin' ? 'user' : 'admin';
+      const nextPanel = loginPanel === 'user' ? 'admin' : 'user';
       setLoginPanel(nextPanel);
       const nextRef = nextPanel === 'admin' ? adminTabRef : userTabRef;
       requestAnimationFrame(() => nextRef.current?.focus());
