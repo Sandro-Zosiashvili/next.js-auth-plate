@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 import styles from '@/styles/auth.module.scss';
 import AuthInput from './AuthInput';
 import AuthButton from './AuthButton';
-import { loginUser, registerUser } from '@/lib/authService';
+import { loginUser, loginUserPanel, registerUser } from '@/lib/authService';
 
 type Mode = 'login' | 'register';
+type LoginPanel = 'admin' | 'user';
 
 interface FieldErrors {
   name?: string;
@@ -48,6 +49,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [globalError, setGlobalError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loginPanel, setLoginPanel] = useState<LoginPanel>('admin');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -64,6 +66,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
     try {
       if (isRegister) {
         await registerUser({ name, email, password });
+      } else if (loginPanel === 'user') {
+        await loginUserPanel({ email, password });
       } else {
         await loginUser({ email, password });
       }
@@ -77,6 +81,28 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      {!isRegister && (
+        <div className={styles.panelTabs} role="tablist" aria-label="Login panel">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={loginPanel === 'admin'}
+            className={`${styles.panelTab} ${loginPanel === 'admin' ? styles.panelTabActive : ''}`}
+            onClick={() => setLoginPanel('admin')}
+          >
+            Admin Panel
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={loginPanel === 'user'}
+            className={`${styles.panelTab} ${loginPanel === 'user' ? styles.panelTabActive : ''}`}
+            onClick={() => setLoginPanel('user')}
+          >
+            User Panel
+          </button>
+        </div>
+      )}
       {globalError && <div className={styles.globalError}>{globalError}</div>}
 
       {isRegister && (
