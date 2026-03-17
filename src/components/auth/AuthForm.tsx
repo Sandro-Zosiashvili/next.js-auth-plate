@@ -57,12 +57,21 @@ export default function AuthForm({ mode }: AuthFormProps) {
   const userTabId = 'login-tab-user';
 
   function handleTabKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowRight') {
       event.preventDefault();
-      const nextPanel = loginPanel === 'admin' ? 'user' : 'admin';
-      setLoginPanel(nextPanel);
-      const nextRef = nextPanel === 'admin' ? adminTabRef : userTabRef;
-      requestAnimationFrame(() => nextRef.current?.focus());
+      if (loginPanel === 'admin') {
+        setLoginPanel('user');
+        requestAnimationFrame(() => userTabRef.current?.focus());
+      }
+      return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      if (loginPanel === 'user') {
+        setLoginPanel('admin');
+        requestAnimationFrame(() => adminTabRef.current?.focus());
+      }
       return;
     }
 
@@ -147,6 +156,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           id: panelId,
           role: 'tabpanel',
           'aria-labelledby': loginPanel === 'admin' ? adminTabId : userTabId,
+          tabIndex: 0,
         })}
       >
         {globalError && <div className={styles.globalError}>{globalError}</div>}
