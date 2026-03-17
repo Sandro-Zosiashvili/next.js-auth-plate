@@ -156,7 +156,6 @@ export default function AuthForm({ mode }: AuthFormProps) {
           id: panelId,
           role: 'tabpanel',
           'aria-labelledby': loginPanel === 'admin' ? adminTabId : userTabId,
-          tabIndex: 0,
         })}
       >
         {globalError && <div className={styles.globalError}>{globalError}</div>}
