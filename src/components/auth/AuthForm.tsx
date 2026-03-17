@@ -59,19 +59,19 @@ export default function AuthForm({ mode }: AuthFormProps) {
   function handleTabKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
     if (event.key === 'ArrowRight') {
       event.preventDefault();
-      if (loginPanel === 'admin') {
-        setLoginPanel('user');
-        requestAnimationFrame(() => userTabRef.current?.focus());
-      }
+      const nextPanel = loginPanel === 'admin' ? 'user' : 'admin';
+      setLoginPanel(nextPanel);
+      const nextRef = nextPanel === 'admin' ? adminTabRef : userTabRef;
+      requestAnimationFrame(() => nextRef.current?.focus());
       return;
     }
 
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      if (loginPanel === 'user') {
-        setLoginPanel('admin');
-        requestAnimationFrame(() => adminTabRef.current?.focus());
-      }
+      const nextPanel = loginPanel === 'admin' ? 'user' : 'admin';
+      setLoginPanel(nextPanel);
+      const nextRef = nextPanel === 'admin' ? adminTabRef : userTabRef;
+      requestAnimationFrame(() => nextRef.current?.focus());
       return;
     }
 
